@@ -39,6 +39,11 @@ public abstract class LessCompileTask extends DefaultTask {
         return this;
     }
 
+    public LessCompileTask into(Directory output) {
+        getDestinationDirectory().set(output);
+        return this;
+    }
+
     @Inject
     abstract public WorkerExecutor getWorkerExecutor();
 
