@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * A simple functional test for the 'gradle.less.plugin.greeting' plugin.
+ * A simple functional test for the 'io.github.kpodvolecky.gradle-less-mt-plugin' plugin.
  */
 class GradleLessPluginFunctionalTest {
     @TempDir
@@ -37,7 +37,7 @@ class GradleLessPluginFunctionalTest {
         // need to copy less files from src/functionalTest/resources to /tmp/less
         String buildGradle =
                         "plugins {\n" +
-                        "  id('com.github.kpodvolecky.gradle-less-mt-plugin')\n" +
+                        "  id('io.github.kpodvolecky.gradle-less-mt-plugin')\n" +
                         "}\n" +
                         "lessCompiler {\n" +
                         "  name 'GLC'\n" +
