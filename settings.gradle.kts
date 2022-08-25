@@ -5,5 +5,5 @@ pluginManagement {
     }
 }
 
-rootProject.name = "gradle-less-mt-plugin"
-include("plugin")
+rootProject.name = "gradle-custom-plugins"
+include("gradle-less-mt-plugin")
