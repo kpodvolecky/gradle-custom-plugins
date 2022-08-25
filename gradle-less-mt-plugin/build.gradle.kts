@@ -47,6 +47,7 @@ pluginBundle {
     tags = listOf("gradle", "less", "compiler", "plugin", "mt")
 }
 
+/*
 tasks.create("setupPluginUploadFromEnvironment") {
     doLast {
         val key = System.getenv("GRADLE_PUBLISH_KEY")
@@ -60,7 +61,7 @@ tasks.create("setupPluginUploadFromEnvironment") {
         System.setProperty("gradle.publish.secret", secret)
     }
 }
-
+*/
 /*
 
 // Add a source set for the functional test suite
