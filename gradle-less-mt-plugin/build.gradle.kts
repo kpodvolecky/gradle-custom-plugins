@@ -44,7 +44,7 @@ pluginBundle {
     website = property("WEBSITE").toString()
     vcsUrl = property("VCS_URL").toString()
     description = property("DESCRIPTION").toString()
-    tags = listOf("gradle", "less", "compiler", "plugin", "mt")
+    tags = listOf("less", "compiler", "mt")
 }
 
 /*
