@@ -5,11 +5,7 @@ import org.gradle.api.file.ConfigurableFileCollection;
 import org.gradle.api.file.Directory;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.provider.Provider;
-import org.gradle.api.tasks.InputFiles;
-import org.gradle.api.tasks.OutputDirectory;
-import org.gradle.api.tasks.PathSensitive;
-import org.gradle.api.tasks.SkipWhenEmpty;
-import org.gradle.api.tasks.TaskAction;
+import org.gradle.api.tasks.*;
 import org.gradle.work.DisableCachingByDefault;
 import org.gradle.workers.WorkQueue;
 import org.gradle.workers.WorkerExecutor;
@@ -21,7 +17,7 @@ import static org.gradle.api.tasks.PathSensitivity.RELATIVE;
 
 @DisableCachingByDefault
 public abstract class LessCompileTask extends DefaultTask {
-    @SkipWhenEmpty
+    @IgnoreEmptyDirectories
     @InputFiles
     @PathSensitive(RELATIVE)
     abstract ConfigurableFileCollection getSource();
