@@ -1,12 +1,12 @@
 # Gradle 7.x custom Plugins
-This project to provide different gradle plugins.
+This project aims to provide different gradle plugins.
 
 # Quick Start
-Compile README.md file in every plugin subdir, to learn more.
+See README.md file in every plugin subdir, to learn more about specific plugin.
 
 # List of plugins
 - gradle-less-mt-plugin
-  - plugin for multithreaded compilation of less files
+  - Gradle plugin for multithreaded compilation of less files
 
 [//]: # (## Contributors)
 
