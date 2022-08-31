@@ -47,7 +47,7 @@ class GradleLessPluginFunctionalTest {
                         "        include 'client*.less' \n" +
                         "        include '*client.less' \n" +
                         "        include 'theme/**/theme.less' \n" +
-                        "    }.files \n " +
+                        "    } \n " +
                         "    into layout.buildDirectory.dir('/tmp/css') \n " +
                         "} \n";
         String gradleProperties =
