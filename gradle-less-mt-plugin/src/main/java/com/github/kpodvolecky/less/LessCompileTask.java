@@ -1,5 +1,6 @@
 package com.github.kpodvolecky.less;
 
+import com.github.kpodvolecky.less.util.Utils;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.file.*;
 import org.gradle.api.provider.Provider;
@@ -10,8 +11,6 @@ import org.gradle.workers.WorkerExecutor;
 
 import javax.inject.Inject;
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static org.gradle.api.tasks.PathSensitivity.RELATIVE;
 
@@ -49,8 +48,8 @@ public abstract class LessCompileTask extends DefaultTask {
         File baseDirectory = getSource().getDir();
         for (File sourceFile : getSource().getFiles()) {
             try {
-                Path relativeDestPath = Paths.get(baseDirectory.getAbsolutePath()).relativize(Paths.get(sourceFile.getAbsolutePath()));
-                File destFile = getDestinationDirectory().file(relativeDestPath.toString().replaceAll("\\.less$", ".css")).get().getAsFile();
+                String destString = Utils.getDestinationPath(baseDirectory.getAbsolutePath(), sourceFile.getAbsolutePath(), getDestinationDirectory().toString());
+                File destFile = new File(destString);
                 workQueue.submit(LessCompile.class, parameters -> {
                     parameters.getLessFile().set(sourceFile);
                     parameters.getCssFile().set(destFile);
