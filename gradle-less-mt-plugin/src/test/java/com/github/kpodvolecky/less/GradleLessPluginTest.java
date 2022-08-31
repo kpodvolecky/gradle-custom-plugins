@@ -3,10 +3,11 @@
  */
 package com.github.kpodvolecky.less;
 
-import org.gradle.testfixtures.ProjectBuilder;
 import org.gradle.api.Project;
+import org.gradle.testfixtures.ProjectBuilder;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * A simple unit test for the 'gradle.less.plugin.greeting' plugin.

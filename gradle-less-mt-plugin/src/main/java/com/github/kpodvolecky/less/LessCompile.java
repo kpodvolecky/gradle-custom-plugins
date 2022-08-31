@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.util.Collection;
+import java.util.*;
 
 public abstract class LessCompile implements WorkAction<LessCompilerParameters> {
     private final Logger log = LoggerFactory.getLogger(LessCompile.class);

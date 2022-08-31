@@ -2,9 +2,16 @@ package com.github.kpodvolecky.less;
 
 import com.github.kpodvolecky.less.util.Utils;
 import org.gradle.api.DefaultTask;
-import org.gradle.api.file.*;
+import org.gradle.api.file.ConfigurableFileTree;
+import org.gradle.api.file.Directory;
+import org.gradle.api.file.DirectoryProperty;
+import org.gradle.api.file.FileTree;
 import org.gradle.api.provider.Provider;
-import org.gradle.api.tasks.*;
+import org.gradle.api.tasks.IgnoreEmptyDirectories;
+import org.gradle.api.tasks.InputFiles;
+import org.gradle.api.tasks.OutputDirectory;
+import org.gradle.api.tasks.PathSensitive;
+import org.gradle.api.tasks.TaskAction;
 import org.gradle.work.DisableCachingByDefault;
 import org.gradle.workers.WorkQueue;
 import org.gradle.workers.WorkerExecutor;
