@@ -13,9 +13,13 @@ import org.gradle.api.Project;
 public class GradleLessPlugin implements Plugin<Project> {
     public void apply(Project project) {
         // register extension
-        project.getExtensions().create(GradleLessExtension.NAME, GradleLessExtension.class);
+        GradleLessExtension extension = project.getExtensions().create(GradleLessExtension.NAME, GradleLessExtension.class);
 
         // Register a task
-        project.getTasks().register("lessCompile", LessCompileTask.class);
+        project.getTasks().register("lessCompile", LessCompileTask.class)
+                .configure( task -> {
+                    task.getSource().from(extension.getSource());
+                    task.getDestinationDirectory().set(extension.getDestinationDirectory());
+                });
     }
 }
