@@ -12,8 +12,8 @@ import org.gradle.api.Project;
  */
 public class GradleLessPlugin implements Plugin<Project> {
     public void apply(Project project) {
-        GradleLessExtension extension = project.getExtensions()
-                .create("lessCompiler", GradleLessExtension.class);
+        // register extension
+        project.getExtensions().create(GradleLessExtension.NAME, GradleLessExtension.class);
 
         // Register a task
         project.getTasks().register("lessCompile", LessCompileTask.class);
