@@ -20,8 +20,10 @@ public class GradleLessExtension {
 
     public void from(ConfigurableFileTree treeSpec) {
         try {
-            System.err.println("ext.from tree: "+treeSpec);
-            getSourceTree().from(treeSpec);
+            getSourceTree()
+                    .from(treeSpec.getDir())
+                    .setExcludes(treeSpec.getExcludes())
+                    .setIncludes(treeSpec.getIncludes());
         } catch (Throwable t) {
             t.printStackTrace();
         }

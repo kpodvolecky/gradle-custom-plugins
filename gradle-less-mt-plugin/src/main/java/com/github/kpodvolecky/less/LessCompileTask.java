@@ -32,7 +32,7 @@ public abstract class LessCompileTask extends DefaultTask {
 
     public LessCompileTask into(Provider<Directory> output) {
         getLogger().debug("Setting output directory: "+output);
-        getDestinationDirectory().set(output);
+        getDestinationDirectory().set(output.get());
         return this;
     }
 
@@ -53,7 +53,7 @@ public abstract class LessCompileTask extends DefaultTask {
         File baseDirectory = getSource().getDir();
         for (File sourceFile : getSource().getFiles()) {
             try {
-                String destString = Utils.getDestinationPath(baseDirectory.getAbsolutePath(), sourceFile.getAbsolutePath(), getDestinationDirectory().toString());
+                String destString = Utils.getDestinationPath(baseDirectory.getAbsolutePath(), sourceFile.getAbsolutePath(), getDestinationDirectory().get().toString());
                 File destFile = new File(destString);
                 workQueue.submit(LessCompile.class, parameters -> {
                     getLogger().debug("Setting source file: "+sourceFile);

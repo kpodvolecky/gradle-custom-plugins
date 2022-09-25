@@ -42,21 +42,16 @@ class GradleLessPluginFunctionalTest {
                         "  id('io.github.kpodvolecky.less.gradle-less-mt-plugin')\n" +
                         "}\n" +
                         "lessCompiler {\n" +
-                        "  from(project.fileTree('" + new File("").getAbsolutePath() + "/src/functionalTest/resources/less') { \n" +
+                        "  sourceTree = project.fileTree('"+ new File("").getAbsolutePath()+"/src/functionalTest/resources/less') { \n" +
                         "        include 'client*.less' \n" +
                         "        include '*client.less' \n" +
                         "        include 'theme/**/theme.less' \n" +
-                        "  })\n" +
-                        "  destinationDirectory = layout.projectDirectory.dir('/tmp/css') \n " +
-                        "}\n"
-//                        "tasks.getByName('lessCompile') {\n " +
-//                        "    from fileTree('/tmp/less') { \n" +
-//                        "        include 'client*.less' \n" +
-//                        "        include '*client.less' \n" +
-//                        "        include 'theme/**/theme.less' \n" +
-//                        "    } \n " +
-//                        "    into layout.buildDirectory.dir('/tmp/css') \n " +
-//                        "} \n"
+                        "  }\n" +
+//                        "  destinationDirectory = layout.projectDirectory.dir('/tmp/css') \n " +
+                        "}\n" +
+                        "tasks.getByName('lessCompile') {\n " +
+                        "    into layout.projectDirectory.dir(getTemporaryDir().getAbsolutePath()) \n " +
+                        "} \n"
                         ;
         String gradleProperties =
                 "org.gradle.jvmargs=-Xmx4g\n" +
@@ -70,7 +65,7 @@ class GradleLessPluginFunctionalTest {
             GradleRunner runner = GradleRunner.create();
             runner.forwardOutput();
             runner.withPluginClasspath();
-            runner.withArguments("lessCompile", "--stacktrace", "--debug");
+            runner.withArguments("lessCompile", "--stacktrace");
             runner.withProjectDir(projectDir);
             BuildResult result = runner.build();
 

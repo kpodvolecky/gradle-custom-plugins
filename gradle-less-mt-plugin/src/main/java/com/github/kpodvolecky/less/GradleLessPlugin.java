@@ -18,7 +18,11 @@ public class GradleLessPlugin implements Plugin<Project> {
         // Register a task
         project.getTasks().register("lessCompile", LessCompileTask.class)
                 .configure( task -> {
-                    task.getSource().from(extension.getSourceTree());
+//                    task.getSource().from(extension.getSourceTree());
+                    task.getSource()
+                            .from(extension.getSourceTree().getDir().getAbsolutePath())
+                            .setExcludes(extension.getSourceTree().getExcludes())
+                            .setIncludes(extension.getSourceTree().getIncludes());
                     task.getDestinationDirectory().set(extension.getDestinationDirectory());
                 });
     }
