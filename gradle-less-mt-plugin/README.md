@@ -8,7 +8,7 @@ Compile your .less files in a [Gradle](https://gradle.org) build is easy! Just a
 
 ```Kotlin
 plugins {
-    id("io.github.kpodvolecky.less.gradle-less-mt-plugin") version "0.0.10"
+    id("io.github.kpodvolecky.less.gradle-less-mt-plugin") version "0.1.0"
 }
 ```
 
