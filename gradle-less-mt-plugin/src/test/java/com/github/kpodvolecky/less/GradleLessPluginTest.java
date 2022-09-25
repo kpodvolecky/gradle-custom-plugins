@@ -16,9 +16,10 @@ class GradleLessPluginTest {
     @Test void pluginRegistersATask() {
         // Create a test project and apply the plugin
         Project project = ProjectBuilder.builder().build();
-        project.getPlugins().apply("io.github.kpodvolecky.less.gradle-less-mt-plugin");
+        project.getPlugins().apply(GradleLessPlugin.class);
 
         // Verify the result
         assertNotNull(project.getTasks().findByName("lessCompile"));
+        assertNotNull(project.getExtensions().findByName("lessCompiler"));
     }
 }

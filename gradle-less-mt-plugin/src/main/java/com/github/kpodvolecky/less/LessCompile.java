@@ -4,6 +4,7 @@ import com.github.houbie.lesscss.builder.CompilationTask;
 import com.github.houbie.lesscss.builder.CompilationUnit;
 import com.github.houbie.lesscss.engine.LessCompilationEngine;
 import com.github.houbie.lesscss.engine.LessCompilationEngineFactory;
+import com.github.kpodvolecky.less.util.Utils;
 import org.gradle.workers.WorkAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,9 +18,11 @@ public abstract class LessCompile implements WorkAction<LessCompilerParameters> 
     @Override
     public void execute() {
         try {
-            File source = getParameters().getLessFile().get().getAsFile();
-            File destination = getParameters().getCssFile().get().getAsFile();
+            File source = getParameters().getLessFileProperty().get();
+            File destination = getParameters().getCssFileProperty().get();
             log.info("Compiling: " + source.getAbsolutePath() + " -> " + destination.getAbsolutePath());
+
+            Utils.ensureDirectoryCreated(destination.getParentFile());
 
             LessCompilationEngine engine = LessCompilationEngineFactory.create(LessCompilationEngineFactory.RHINO);
             CompilationTask task = new CompilationTask(engine);

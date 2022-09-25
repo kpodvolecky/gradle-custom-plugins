@@ -1,18 +1,47 @@
 package com.github.kpodvolecky.less.configuration;
 
+import org.gradle.api.file.ConfigurableFileTree;
+import org.gradle.api.file.Directory;
+import org.gradle.api.internal.file.FileCollectionFactory;
+
 /**
  * Plugin configuration.
  */
 public class GradleLessExtension {
-    private String name = "Gradle Less compilation plugin";
+    public static final String NAME = "lessCompiler";
+    private FileCollectionFactory fileCollectionFactory;
+    private ConfigurableFileTree sourceTree;
+    private Directory destinationDirectory;
 
-    private String srcDir;
-
-    public String getName() {
-        return name;
+    public GradleLessExtension(FileCollectionFactory fileCollectionFactory) {
+        this.fileCollectionFactory=fileCollectionFactory;
+        this.sourceTree = this.fileCollectionFactory.fileTree();
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void from(ConfigurableFileTree treeSpec) {
+        try {
+            getSourceTree()
+                    .from(treeSpec.getDir())
+                    .setExcludes(treeSpec.getExcludes())
+                    .setIncludes(treeSpec.getIncludes());
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+    }
+
+    public Directory getDestinationDirectory() {
+        return destinationDirectory;
+    }
+
+    public void setDestinationDirectory(Directory destinationDirectory) {
+        this.destinationDirectory = destinationDirectory;
+    }
+
+    public ConfigurableFileTree getSourceTree() {
+        return sourceTree;
+    }
+
+    public void setSourceTree(ConfigurableFileTree sourceTree) {
+        this.sourceTree = sourceTree;
     }
 }

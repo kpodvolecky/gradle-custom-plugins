@@ -1,5 +1,6 @@
 package com.github.kpodvolecky.less.util;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -16,4 +17,9 @@ public class Utils {
         return getDestinationPath(Paths.get(baseDirectory), Paths.get(sourceFile), Paths.get(destinationDirectory)).toString();
     }
 
+    public static void ensureDirectoryCreated(File file) {
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+    }
 }
