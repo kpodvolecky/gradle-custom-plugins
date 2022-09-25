@@ -17,8 +17,8 @@ public abstract class LessCompile implements WorkAction<LessCompilerParameters> 
     @Override
     public void execute() {
         try {
-            File source = getParameters().getLessFile().get().getAsFile();
-            File destination = getParameters().getCssFile().get().getAsFile();
+            File source = getParameters().getLessFileProperty().get();
+            File destination = getParameters().getCssFileProperty().get();
             log.info("Compiling: " + source.getAbsolutePath() + " -> " + destination.getAbsolutePath());
 
             LessCompilationEngine engine = LessCompilationEngineFactory.create(LessCompilationEngineFactory.RHINO);

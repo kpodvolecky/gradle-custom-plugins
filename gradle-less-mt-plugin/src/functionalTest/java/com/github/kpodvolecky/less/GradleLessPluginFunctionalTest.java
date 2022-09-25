@@ -35,21 +35,29 @@ class GradleLessPluginFunctionalTest {
     @Test
     void canRunTask() throws IOException {
         // need to copy less files from src/functionalTest/resources to /tmp/less
+        System.out.println("Working directory: "+new File("").getAbsolutePath());
+
         String buildGradle =
                         "plugins {\n" +
                         "  id('io.github.kpodvolecky.less.gradle-less-mt-plugin')\n" +
                         "}\n" +
                         "lessCompiler {\n" +
-                        "  name 'GLC'\n" +
-                        "}\n" +
-                        "tasks.getByName('lessCompile') {\n " +
-                        "    from fileTree('/tmp/less') { \n" +
+                        "  from(project.fileTree('" + new File("").getAbsolutePath() + "/src/functionalTest/resources/less') { \n" +
                         "        include 'client*.less' \n" +
                         "        include '*client.less' \n" +
                         "        include 'theme/**/theme.less' \n" +
-                        "    } \n " +
-                        "    into layout.buildDirectory.dir('/tmp/css') \n " +
-                        "} \n";
+                        "  })\n" +
+                        "  destinationDirectory = layout.projectDirectory.dir('/tmp/css') \n " +
+                        "}\n"
+//                        "tasks.getByName('lessCompile') {\n " +
+//                        "    from fileTree('/tmp/less') { \n" +
+//                        "        include 'client*.less' \n" +
+//                        "        include '*client.less' \n" +
+//                        "        include 'theme/**/theme.less' \n" +
+//                        "    } \n " +
+//                        "    into layout.buildDirectory.dir('/tmp/css') \n " +
+//                        "} \n"
+                        ;
         String gradleProperties =
                 "org.gradle.jvmargs=-Xmx4g\n" +
                 "org.gradle.workers.max=5";
@@ -57,18 +65,22 @@ class GradleLessPluginFunctionalTest {
         writeString(getBuildFile(), buildGradle);
         writeString(getPropertiesFile(), gradleProperties);
 
-        // Run the build
-        GradleRunner runner = GradleRunner.create();
-        runner.forwardOutput();
-        runner.withPluginClasspath();
-        runner.withArguments("lessCompile");
-        runner.withProjectDir(projectDir);
-        BuildResult result = runner.build();
+        try {
+            // Run the build
+            GradleRunner runner = GradleRunner.create();
+            runner.forwardOutput();
+            runner.withPluginClasspath();
+            runner.withArguments("lessCompile", "--stacktrace", "--debug");
+            runner.withProjectDir(projectDir);
+            BuildResult result = runner.build();
 
-        System.out.println(result.getOutput());
+            System.out.println(result.getOutput());
 
-        // Verify the result
-        // assertTrue(result.getOutput().contains("Hello, GLC"));
+            // Verify the result
+            // assertTrue(result.getOutput().contains("Hello, GLC"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void writeString(File file, String string) throws IOException {

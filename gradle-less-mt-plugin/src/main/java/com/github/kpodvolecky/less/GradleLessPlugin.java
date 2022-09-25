@@ -8,7 +8,7 @@ import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 
 /**
- * A simple 'hello world' plugin.
+ * Gradle less compiler plugin
  */
 public class GradleLessPlugin implements Plugin<Project> {
     public void apply(Project project) {
@@ -18,7 +18,7 @@ public class GradleLessPlugin implements Plugin<Project> {
         // Register a task
         project.getTasks().register("lessCompile", LessCompileTask.class)
                 .configure( task -> {
-                    task.getSource().from(extension.getSource());
+                    task.getSource().from(extension.getSourceTree());
                     task.getDestinationDirectory().set(extension.getDestinationDirectory());
                 });
     }

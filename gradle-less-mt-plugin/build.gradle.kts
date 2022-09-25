@@ -62,32 +62,29 @@ tasks.create("setupPluginUploadFromEnvironment") {
     }
 }
 */
-/*
 
 // Add a source set for the functional test suite
-sourceSets {
-    functionalTest {
-    }
+val functionalTestSourceSet = sourceSets.create("functionalTest") {
 }
 
-configurations.functionalTestImplementation.extendsFrom(configurations.testImplementation)
+configurations["functionalTestImplementation"].extendsFrom(configurations["testImplementation"])
 
 // Add a task to run the functional tests
-tasks.register("functionalTest", Test) {
-    testClassesDirs = sourceSets.functionalTest.output.classesDirs
-    classpath = sourceSets.functionalTest.runtimeClasspath
+val functionalTest by tasks.registering(Test::class) {
+    group = "verification"
+    testClassesDirs = functionalTestSourceSet.output.classesDirs
+    classpath = functionalTestSourceSet.runtimeClasspath
     useJUnitPlatform()
 }
 
-gradlePlugin.testSourceSets(sourceSets.functionalTest)
+gradlePlugin.testSourceSets(functionalTestSourceSet)
 
-tasks.named("check") {
+tasks.named<Task>("check") {
     // Run the functional tests as part of `check`
-    dependsOn(tasks.functionalTest)
+    dependsOn(functionalTest)
 }
 
-tasks.named("test") {
+tasks.named<Test>("test") {
     // Use JUnit Jupiter for unit tests.
     useJUnitPlatform()
 }
-*/
