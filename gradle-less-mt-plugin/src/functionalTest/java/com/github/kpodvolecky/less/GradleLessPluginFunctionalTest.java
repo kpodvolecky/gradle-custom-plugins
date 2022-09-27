@@ -67,6 +67,7 @@ class GradleLessPluginFunctionalTest {
             runner.withPluginClasspath();
             runner.withArguments("lessCompile", "--stacktrace");
             runner.withProjectDir(projectDir);
+            runner.withDebug(true);
             BuildResult result = runner.build();
 
             System.out.println(result.getOutput());
