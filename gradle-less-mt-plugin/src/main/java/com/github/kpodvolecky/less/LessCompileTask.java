@@ -5,8 +5,8 @@ import org.gradle.api.DefaultTask;
 import org.gradle.api.file.ConfigurableFileTree;
 import org.gradle.api.file.Directory;
 import org.gradle.api.file.DirectoryProperty;
+import org.gradle.api.model.ObjectFactory;
 import org.gradle.api.provider.Property;
-import org.gradle.api.provider.Provider;
 import org.gradle.api.tasks.InputFiles;
 import org.gradle.api.tasks.OutputDirectory;
 import org.gradle.api.tasks.PathSensitive;
@@ -23,23 +23,35 @@ import static org.gradle.api.tasks.PathSensitivity.RELATIVE;
 
 @DisableCachingByDefault
 public abstract class LessCompileTask extends DefaultTask {
+    private DirectoryProperty destinationDirectory;
+
+    public LessCompileTask() {
+        ObjectFactory objectFactory = getProject().getObjects();
+        this.destinationDirectory = objectFactory.directoryProperty();
+    }
+
     @SkipWhenEmpty
     @InputFiles
     @PathSensitive(RELATIVE)
     abstract Property<ConfigurableFileTree> getSource();
 
     @OutputDirectory
-    abstract public DirectoryProperty getDestinationDirectory();
+    public DirectoryProperty getDestinationDirectory() {
+        return this.destinationDirectory;
+    }
 
-    public LessCompileTask into(Provider<Directory> output) {
-        getLogger().debug("Setting output directory: "+output);
+    public LessCompileTask into(DirectoryProperty output) {
         getDestinationDirectory().set(output.get());
         return this;
     }
 
     public LessCompileTask into(Directory output) {
-        getLogger().debug("Setting output directory: "+output);
         getDestinationDirectory().set(output);
+        return this;
+    }
+
+    public LessCompileTask from(ConfigurableFileTree sourceTree) {
+        getSource().set(sourceTree);
         return this;
     }
 
@@ -48,7 +60,7 @@ public abstract class LessCompileTask extends DefaultTask {
 
     @TaskAction
     public void lessCompile() {
-        getLogger().debug("Executing lessCompile task...");
+        getLogger().debug("Executing lessCompile task, destination directory: "+getDestinationDirectory().get().toString());
         WorkQueue workQueue = getWorkerExecutor().noIsolation();
 
         File baseDirectory = getSource().get().getDir();

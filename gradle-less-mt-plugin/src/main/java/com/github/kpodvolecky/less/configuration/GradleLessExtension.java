@@ -1,10 +1,12 @@
 package com.github.kpodvolecky.less.configuration;
 
+import com.github.kpodvolecky.less.LessCompileTask;
 import org.gradle.api.Project;
 import org.gradle.api.file.ConfigurableFileTree;
 import org.gradle.api.file.Directory;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.provider.Property;
+import org.gradle.api.provider.Provider;
 
 /**
  * Plugin configuration.
@@ -17,7 +19,8 @@ public class GradleLessExtension {
 
     public GradleLessExtension(Project project) {
         this.project = project;
-        setSourceTree(project.getObjects().fileTree());
+        // set default values
+        setSourceTree(project.getObjects().fileTree().from(project.getLayout().getProjectDirectory()));
         setDestinationDirectory(project.getLayout().getBuildDirectory());
     }
 
@@ -32,16 +35,20 @@ public class GradleLessExtension {
         }
     }
 
-    public Property<Directory> getDestinationDirectory() {
+    public void into(Provider<Directory> output) {
+        getDestinationDirectory().set(output.get());
+    }
+
+    public void into(Directory output) {
+        getDestinationDirectory().set(output);
+    }
+
+    public DirectoryProperty getDestinationDirectory() {
         return destinationDirectory;
     }
 
     public void setDestinationDirectory(DirectoryProperty destinationDirectory) {
         this.destinationDirectory = destinationDirectory;
-    }
-
-    public void setDestinationDirectory(Directory destinationDirectory) {
-        this.destinationDirectory = project.getObjects().directoryProperty().value(destinationDirectory);
     }
 
     public ConfigurableFileTree getSourceTree() {
