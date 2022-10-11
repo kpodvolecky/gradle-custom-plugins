@@ -1,40 +1,46 @@
 package com.github.kpodvolecky.less.configuration;
 
+import org.gradle.api.Project;
 import org.gradle.api.file.ConfigurableFileTree;
 import org.gradle.api.file.Directory;
-import org.gradle.api.internal.file.FileCollectionFactory;
+import org.gradle.api.file.DirectoryProperty;
+import org.gradle.api.provider.Property;
 
 /**
  * Plugin configuration.
  */
 public class GradleLessExtension {
     public static final String NAME = "lessCompiler";
-    private FileCollectionFactory fileCollectionFactory;
+    private Project project;
     private ConfigurableFileTree sourceTree;
-    private Directory destinationDirectory;
+    private DirectoryProperty destinationDirectory;
 
-    public GradleLessExtension(FileCollectionFactory fileCollectionFactory) {
-        this.fileCollectionFactory=fileCollectionFactory;
-        this.sourceTree = this.fileCollectionFactory.fileTree();
+    public GradleLessExtension(Project project) {
+        this.project = project;
+        setSourceTree(project.getObjects().fileTree());
     }
 
     public void from(ConfigurableFileTree treeSpec) {
         try {
-            getSourceTree()
-                    .from(treeSpec.getDir())
-                    .setExcludes(treeSpec.getExcludes())
-                    .setIncludes(treeSpec.getIncludes());
+            getSourceTree().setBuiltBy(treeSpec.getBuiltBy());
+            getSourceTree().setDir(treeSpec.getDir());
+            getSourceTree().setIncludes(treeSpec.getIncludes());
+            getSourceTree().setIncludes(treeSpec.getExcludes());
         } catch (Throwable t) {
             t.printStackTrace();
         }
     }
 
-    public Directory getDestinationDirectory() {
+    public Property<Directory> getDestinationDirectory() {
         return destinationDirectory;
     }
 
-    public void setDestinationDirectory(Directory destinationDirectory) {
+    public void setDestinationDirectory(DirectoryProperty destinationDirectory) {
         this.destinationDirectory = destinationDirectory;
+    }
+
+    public void setDestinationDirectory(Directory destinationDirectory) {
+        this.destinationDirectory = project.getObjects().directoryProperty().value(destinationDirectory);
     }
 
     public ConfigurableFileTree getSourceTree() {

@@ -47,7 +47,7 @@ class GradleLessPluginFunctionalTest {
                         "        include '*client.less' \n" +
                         "        include 'theme/**/theme.less' \n" +
                         "  }\n" +
-//                        "  destinationDirectory = layout.projectDirectory.dir('/tmp/css') \n " +
+                        "  destinationDirectory = layout.projectDirectory.dir('/tmp/css') \n " +
                         "}\n" +
                         "tasks.getByName('lessCompile') {\n " +
                         "    into layout.projectDirectory.dir(getTemporaryDir().getAbsolutePath()) \n " +
@@ -65,7 +65,7 @@ class GradleLessPluginFunctionalTest {
             GradleRunner runner = GradleRunner.create();
             runner.forwardOutput();
             runner.withPluginClasspath();
-            runner.withArguments("lessCompile", "--stacktrace");
+            runner.withArguments("lessCompile", "--stacktrace", "--debug");
             runner.withProjectDir(projectDir);
             runner.withDebug(true);
             BuildResult result = runner.build();
