@@ -21,7 +21,6 @@ import java.io.File;
 
 import static org.gradle.api.tasks.PathSensitivity.RELATIVE;
 
-@DisableCachingByDefault
 public abstract class LessCompileTask extends DefaultTask {
     private DirectoryProperty destinationDirectory;
 
