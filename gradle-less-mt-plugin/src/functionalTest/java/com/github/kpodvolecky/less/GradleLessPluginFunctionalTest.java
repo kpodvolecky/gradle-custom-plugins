@@ -42,10 +42,12 @@ class GradleLessPluginFunctionalTest {
                         "  id('io.github.kpodvolecky.less.gradle-less-mt-plugin')\n" +
                         "}\n" +
                         "lessCompiler {\n" +
-                        "  sourceTree = project.fileTree('"+ new File("").getAbsolutePath()+"/src/functionalTest/resources/less') { \n" +
-                        "        include 'client*.less' \n" +
-                        "        include '*client.less' \n" +
-                        "        include 'theme/**/theme.less' \n" +
+                        "  sourceTree = project.fileTree('"+ new File("").getAbsolutePath()+"/src/functionalTest/resources/general') { \n" +
+                        "        include '**/scope*.less' \n" +
+                        "        include 'loop.less' \n" +
+                        "        include 'import.less' \n" +
+                        "        exclude 'importOptional.less' \n" +
+                        "        exclude 'guard.less' \n" +
                         "  }\n" +
                         "  destinationDirectory = layout.projectDirectory.dir('/tmp/css') \n " +
                         "}\n" +
