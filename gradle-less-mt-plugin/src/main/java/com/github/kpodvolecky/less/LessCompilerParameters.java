@@ -8,5 +8,8 @@ import java.io.File;
 
 public interface LessCompilerParameters extends WorkParameters {
     Property<File> getLessFileProperty();
+
+    Property<File> getBaseLessFileProperty();
+
     Property<File> getCssFileProperty();
 }

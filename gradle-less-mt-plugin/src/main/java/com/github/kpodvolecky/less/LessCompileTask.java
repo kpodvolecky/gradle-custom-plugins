@@ -68,6 +68,8 @@ public abstract class LessCompileTask extends DefaultTask {
                 String destString = Utils.getDestinationPath(baseDirectory.getAbsolutePath(), sourceFile.getAbsolutePath(), getDestinationDirectory().get().toString());
                 File destFile = new File(destString);
                 workQueue.submit(LessCompile.class, parameters -> {
+                    getLogger().debug("Setting base file: "+baseDirectory);
+                    parameters.getBaseLessFileProperty().set(baseDirectory);
                     getLogger().debug("Setting source file: "+sourceFile);
                     parameters.getLessFileProperty().set(sourceFile);
                     getLogger().debug("Setting destination file: "+destFile);

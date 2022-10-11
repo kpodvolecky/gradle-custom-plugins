@@ -9,3 +9,4 @@ plugin-publish = { id = "com.gradle.plugin-publish", version.ref = "plugin-publi
 
 [libraries]
 lesscss = { module = "com.github.houbie:lesscss", version.ref = "lesscss-version" }
+jlessc = { module = "de.inetsoftware:jlessc", version = "+" }

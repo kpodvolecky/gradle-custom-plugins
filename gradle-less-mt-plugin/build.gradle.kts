@@ -17,7 +17,7 @@ repositories {
 
 dependencies {
     implementation(gradleApi())
-    implementation(libs.lesscss)
+    implementation(libs.jlessc)
 }
 
 // set plugin group
