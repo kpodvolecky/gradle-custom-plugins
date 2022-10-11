@@ -18,6 +18,7 @@ public class GradleLessExtension {
     public GradleLessExtension(Project project) {
         this.project = project;
         setSourceTree(project.getObjects().fileTree());
+        setDestinationDirectory(project.getLayout().getBuildDirectory());
     }
 
     public void from(ConfigurableFileTree treeSpec) {
