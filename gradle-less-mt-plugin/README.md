@@ -8,13 +8,14 @@ Compile your .less files in a [Gradle](https://gradle.org) build is easy! Just a
 
 ```Kotlin
 plugins {
-    id("io.github.kpodvolecky.less.gradle-less-mt-plugin") version "0.1.1"
+    id("io.github.kpodvolecky.less.gradle-less-mt-plugin") version "0.1.2"
 }
 ```
 
 Then you can configure compilation task:
 
 ```Kotlin
+/* dont use extension yet - it's buggy
 // You must declare your sources using lessCompiler extension
 lessCompiler {
   sourceTree = fileTree("${projectDir}/src/main/webapp/media/less") {
@@ -24,11 +25,18 @@ lessCompiler {
   }
   destinationDirectory = layout.buildDirectory.dir("resources/css")
 }
-
-// you may override extension with
+*/
+// you must override extension with
 tasks.getByName<com.github.kpodvolecky.less.LessCompileTask>("lessCompile") {
+    from fileTree("${projectDir}/src/main/webapp/media/less") {
+        include("client*.less")
+        include("*client.less")
+        include("theme/**/theme.less")
+    }
+
+    // set output directory like this
     destinationDirectory = layout.projectDirectory.dir("src/main/webapp/media")
-    // or 
+    // or this
     into(layout.projectDirectory.dir(getTemporaryDir().getAbsolutePath()))
 }
 ```

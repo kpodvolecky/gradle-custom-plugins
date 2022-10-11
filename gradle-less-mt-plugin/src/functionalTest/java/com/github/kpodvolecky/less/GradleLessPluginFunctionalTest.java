@@ -41,17 +41,25 @@ class GradleLessPluginFunctionalTest {
                         "plugins {\n" +
                         "  id('io.github.kpodvolecky.less.gradle-less-mt-plugin')\n" +
                         "}\n" +
-                        "lessCompiler {\n" +
-                        "  sourceTree = project.fileTree('"+ new File("").getAbsolutePath()+"/src/functionalTest/resources/general') { \n" +
-                        "        include '**/scope*.less' \n" +
-                        "        include 'loop.less' \n" +
-                        "        include 'import.less' \n" +
-                        "        exclude 'importOptional.less' \n" +
-                        "        exclude 'guard.less' \n" +
-                        "  }\n" +
-                        "  destinationDirectory = layout.projectDirectory.dir('/tmp/css') \n " +
-                        "}\n" +
+//                        "lessCompiler {\n" +
+//                        "  sourceTree = project.fileTree('"+ new File("").getAbsolutePath()+"/src/functionalTest/resources/common') { \n" +
+//                        "        include '**/scope*.less' \n" +
+//                        "        include 'loop.less' \n" +
+//                        "        include 'import.less' \n" +
+//                        "        exclude 'importOptional.less' \n" +
+//                        "        exclude 'guard.less' \n" +
+//                        "  } \n" +
+////                        "  destinationDirectory = layout.projectDirectory.dir('/tmp/css') \n " +
+//                        "  into layout.projectDirectory.dir('/tmp/css') \n " +
+//                        "}\n" +
                         "tasks.getByName('lessCompile') {\n " +
+                                "  from project.fileTree('"+ new File("").getAbsolutePath()+"/src/functionalTest/resources/general') { \n" +
+                                "        include '**/scope*.less' \n" +
+                                "        include 'loop.less' \n" +
+                                "        include 'import.less' \n" +
+                                "        exclude 'importOptional.less' \n" +
+                                "        exclude 'guard.less' \n" +
+                                "  } \n" +
                         "    into layout.projectDirectory.dir(getTemporaryDir().getAbsolutePath()) \n " +
                         "} \n"
                         ;
