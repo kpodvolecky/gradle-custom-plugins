@@ -5,6 +5,7 @@ import org.gradle.api.DefaultTask;
 import org.gradle.api.file.ConfigurableFileTree;
 import org.gradle.api.file.Directory;
 import org.gradle.api.file.DirectoryProperty;
+import org.gradle.api.provider.Property;
 import org.gradle.api.provider.Provider;
 import org.gradle.api.tasks.InputFiles;
 import org.gradle.api.tasks.OutputDirectory;
@@ -25,7 +26,7 @@ public abstract class LessCompileTask extends DefaultTask {
     @SkipWhenEmpty
     @InputFiles
     @PathSensitive(RELATIVE)
-    abstract ConfigurableFileTree getSource();
+    abstract Property<ConfigurableFileTree> getSource();
 
     @OutputDirectory
     abstract public DirectoryProperty getDestinationDirectory();
@@ -50,8 +51,8 @@ public abstract class LessCompileTask extends DefaultTask {
         getLogger().debug("Executing lessCompile task...");
         WorkQueue workQueue = getWorkerExecutor().noIsolation();
 
-        File baseDirectory = getSource().getDir();
-        for (File sourceFile : getSource().getFiles()) {
+        File baseDirectory = getSource().get().getDir();
+        for (File sourceFile : getSource().get().getFiles()) {
             try {
                 String destString = Utils.getDestinationPath(baseDirectory.getAbsolutePath(), sourceFile.getAbsolutePath(), getDestinationDirectory().get().toString());
                 File destFile = new File(destString);
