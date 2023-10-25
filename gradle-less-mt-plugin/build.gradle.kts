@@ -28,6 +28,10 @@ val gitVersion: groovy.lang.Closure<String> by extra
 version = gitVersion()
 
 gradlePlugin {
+    website = property("WEBSITE").toString()
+    vcsUrl = property("VCS_URL").toString()
+    description = property("DESCRIPTION").toString()
+
     plugins {
         create(property("ID").toString()) {
             id = property("ID").toString()
@@ -35,16 +39,9 @@ gradlePlugin {
             implementationClass = property("IMPLEMENTATION_CLASS").toString()
             displayName = property("DISPLAY_NAME").toString()
             description = property("DESCRIPTION").toString()
+            tags = listOf("less", "compiler", "mt")
         }
     }
-}
-
-// Configuration Block for the Plugin Marker artifact on Plugin Central
-pluginBundle {
-    website = property("WEBSITE").toString()
-    vcsUrl = property("VCS_URL").toString()
-    description = property("DESCRIPTION").toString()
-    tags = listOf("less", "compiler", "mt")
 }
 
 /*

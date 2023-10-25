@@ -1,3 +1,6 @@
+import org.gradle.jvm.toolchain.JvmImplementation
+import org.gradle.jvm.toolchain.JvmVendorSpec
+
 plugins {
     id("java-gradle-plugin")
 }
@@ -16,6 +19,6 @@ testing {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(8))
+        languageVersion = JavaLanguageVersion.of(11)
     }
 }
