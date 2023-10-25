@@ -20,7 +20,5 @@ testing {
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(11)
-        vendor = JvmVendorSpec.AMAZON
-        implementation = JvmImplementation.VENDOR_SPECIFIC
     }
 }
